@@ -9,25 +9,16 @@ namespace PostmanCloneLibrary;
 
 
 
-public class APIAccess
+public class APIAccess : IAPIAccess
 {
-
     private readonly HttpClient client = new();
-
-    public async Task<Tuple<bool, string>> CallAPI(string url)
-    {
-        //Sample code to call an API
-       
-        var response = await client.GetAsync(url);
-
-        return await AssessResponse(response);  
-    }
-
     public async Task<Tuple<bool, string>> CallAPI(string url, HTTPAction action, string body, bool formatOutput = true)
     {
-        
+
         var content = new StringContent(body, Encoding.UTF8, "application/json");
+
         HttpResponseMessage? response = null;
+
         switch (action.ToString())
         {
             case "GET":
@@ -44,11 +35,10 @@ public class APIAccess
                 break;
         }
 
-
         return await AssessResponse(response, formatOutput);
     }
 
-    public async Task<Tuple<bool, string>> AssessResponse(HttpResponseMessage? response, bool formatOutput = true)
+    private async Task<Tuple<bool, string>> AssessResponse(HttpResponseMessage? response, bool formatOutput = true)
     {
         if (response == null)
         {
@@ -61,9 +51,9 @@ public class APIAccess
 
             ResponseType typ = GetResponseType(responseContent);
 
-            string output = formatOutput? FormatResponse( responseContent) : responseContent;
+            string output = formatOutput ? FormatResponse(responseContent) : responseContent;
 
-            
+
             return new Tuple<bool, string>(true, output);
 
         }
@@ -75,7 +65,7 @@ public class APIAccess
 
         }
 
-        
+
     }
 
 }
