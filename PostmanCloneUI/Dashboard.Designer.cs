@@ -70,7 +70,6 @@
             // 
             resultsBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             resultsBox.BackColor = SystemColors.HighlightText;
-            resultsBox.BorderStyle = BorderStyle.FixedSingle;
             resultsBox.Location = new Point(30, 171);
             resultsBox.Multiline = true;
             resultsBox.Name = "resultsBox";
@@ -91,7 +90,8 @@
             // 
             // statusStrip
             // 
-            statusStrip.BackColor = Color.Wheat;
+            statusStrip.BackColor = SystemColors.Control;
+            statusStrip.GripStyle = ToolStripGripStyle.Visible;
             statusStrip.Items.AddRange(new ToolStripItem[] { systemStatus });
             statusStrip.Location = new Point(0, 686);
             statusStrip.Name = "statusStrip";

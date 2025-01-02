@@ -9,7 +9,7 @@ namespace PostmanCloneUI
         private const string STATUS__INVALID_URL = "Invalid URL!";
         private const string STATUS_ERROR = "An error occurred";
 
-        private readonly APIAccess api = new();
+        private readonly IAPIAccess api = new APIAccess();
 
         public Dashboard()
         {
