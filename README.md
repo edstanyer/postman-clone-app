@@ -17,6 +17,14 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
 5. Incorrect or malformed requests, should give detailed responses, allowing for analysis and problem solving.
 ![Postman clone app bad request](images/screen3.png "Un-Successful Request")
 
+##Version History
+1. v0.1.0:
+   * Initial deployment of MVP
+2. v1.0.0
+   * Adds POST, PUT, PATCH, DELETE
+   * Various UI improvements
+   * 'desktops' settings, remembering last URL & body / content from last call or each method
+
 ## Upcoming Changes:
 * Adding POST, PUT, PATCH and DELETE
 * Adding API Headers
@@ -24,3 +32,5 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
 * Adding Dependency Injection
 * Adding Logging
 * Create a web-based user interface.
+
+
