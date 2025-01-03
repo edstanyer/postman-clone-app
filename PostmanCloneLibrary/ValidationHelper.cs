@@ -10,10 +10,21 @@ namespace PostmanCloneLibrary
     public static class ValidationHelper
     {
 
+        public static bool IsValidMethod(HTTPAction method)
+        {
+            return method == HTTPAction.GET || method== HTTPAction.POST || method == HTTPAction.PUT || method == HTTPAction.PATCH || method== HTTPAction.DELETE;
+        }
 
         public static bool IsValidMethod(string method)
         {
-            return method == "GET" || method == "POST" || method == "PUT" || method == "DELETE";
+            //convert string to HTTP Action
+
+            if (!Enum.TryParse(method, out HTTPAction action))
+            {
+                return false;
+            }
+
+            return IsValidMethod(action);
         }
 
         public static bool IsValidUrl(string url)

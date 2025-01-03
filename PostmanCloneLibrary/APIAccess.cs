@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
+
 using static PostmanCloneLibrary.ValidationHelper;
 using static PostmanCloneLibrary.Formatter;
 
@@ -12,10 +12,22 @@ namespace PostmanCloneLibrary;
 public class APIAccess : IAPIAccess
 {
     private readonly HttpClient client = new();
-    public async Task<Tuple<bool, string>> CallAPI(string url, HTTPAction action, string body, bool formatOutput = true)
+
+    public async Task<Tuple<bool, string>> CallAPI(string url, HTTPAction action, string content, bool formatOutput = true)
+    {
+        var stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+        return await CallAPI(url, action, stringContent, formatOutput);
+
+    }
+
+    public async Task<Tuple<bool, string>> CallAPI(string url, HTTPAction action, StringContent content, bool formatOutput = true)
     {
 
-        var content = new StringContent(body, Encoding.UTF8, "application/json");
+        if (!IsValidMethod(action))
+        {
+            return new Tuple<bool, string>(false, "Invalid HTTP Verb");
+        }
+
 
         HttpResponseMessage? response = null;
 
@@ -29,6 +41,9 @@ public class APIAccess : IAPIAccess
                 break;
             case "PUT":
                 response = await client.PutAsync(url, content);
+                break;
+            case "PATCH":
+                response = await client.PatchAsync(url, content);
                 break;
             case "DELETE":
                 response = await client.DeleteAsync(url);
