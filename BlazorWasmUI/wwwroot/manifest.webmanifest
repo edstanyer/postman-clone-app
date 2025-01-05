@@ -1,6 +1,6 @@
 {
-  "name": "Postman Clone",
-  "short_name": "PostmanClone",
+  "name": "Postal Api Tester",
+  "short_name": "PAT",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
