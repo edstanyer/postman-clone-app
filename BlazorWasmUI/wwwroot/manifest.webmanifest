@@ -9,14 +9,14 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "PAT-256.png",
+      "src": "PAT-512.png",
       "type": "image/png",
-      "sizes": "256x256"
+      "sizes": "512x512"
     },
     {
-      "src": "PAT-128.png",
+      "src": "PAT-192.png",
       "type": "image/png",
-      "sizes": "128x128"
+      "sizes": "192x192"
     }
   ]
 }
