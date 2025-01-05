@@ -1,0 +1,22 @@
+{
+  "name": "Postman Clone",
+  "short_name": "PostmanClone",
+  "id": "./",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#263d03",
+  "theme_color": "#3d0f03",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

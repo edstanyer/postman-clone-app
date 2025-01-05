@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostmanCloneUI", "PostmanCl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUI", "WpfUI\WpfUI.csproj", "{B7D57956-7B68-4AA5-81D6-99118AA7737E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmUI", "BlazorWasmUI\BlazorWasmUI.csproj", "{2E6CC8D7-6550-4F0E-A751-2259D062A66D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B7D57956-7B68-4AA5-81D6-99118AA7737E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7D57956-7B68-4AA5-81D6-99118AA7737E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7D57956-7B68-4AA5-81D6-99118AA7737E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E6CC8D7-6550-4F0E-A751-2259D062A66D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6CC8D7-6550-4F0E-A751-2259D062A66D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6CC8D7-6550-4F0E-A751-2259D062A66D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6CC8D7-6550-4F0E-A751-2259D062A66D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

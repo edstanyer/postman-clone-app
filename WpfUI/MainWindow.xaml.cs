@@ -75,7 +75,7 @@ namespace WpfUI
 
                 var response = await api.CallAPI(inputText, action, body, true);
                 if (response.Item1 == true)
-                {
+                { 
 
 
                     APIModel model = new APIModel(inputText, action, body);
@@ -159,7 +159,7 @@ namespace WpfUI
             {
 
                 //get the existing API model from the cache
-                APIModel? model = null;
+                IAPIModel? model = null;
                 switch (s)
                 {
                     case HTTPAction.GET:

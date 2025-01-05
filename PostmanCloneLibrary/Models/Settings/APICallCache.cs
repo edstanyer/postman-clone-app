@@ -146,7 +146,7 @@ public class APICallCache
         Save();
     }
 
-    public APIModel GetAPI(HTTPAction method)
+    public IAPIModel GetAPI(HTTPAction method)
     {
         switch (method)
         {

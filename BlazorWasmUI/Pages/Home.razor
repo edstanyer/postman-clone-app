@@ -1,0 +1,234 @@
+﻿@using BlazorWasmUI.Models
+@using PostmanCloneLibrary
+@using PostmanCloneLibrary.Models.Settings
+@page "/"
+
+@inject IJSRuntime JSRuntime
+@inject PostmanCloneLibrary.IAPIAccess dataAccess
+
+
+<PageTitle>Postal Api Tester</PageTitle>
+
+
+<div class="d-flex flex-row mb-1">
+    <img src="images/jess.png" class="img-flow" height="265" width="265" alt="Picture of the Jess the cat" />
+    <div class="h1-orange mb-5">
+        <p class="mb-0">P<span class="header-small">OSTAL</span></p>
+        <p class="mb-0">A<span class="header-small">PI</span></p>
+        <p class="mb-0">T<span class="header-small">ESTER</span></p>
+    </div>
+</div>
+
+
+<div class="col-xl-8 mb-5">
+    <EditForm Model="@request" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator/> 
+        <ValidationSummary /> 
+        <div class="d-flex flex-row">
+            <div class="h3 pe-2">API:</div>
+            <div class="pe-2">
+                <select id="verbSelection" class="form-control" 
+                @bind="@request.Method">
+                    <option value="" selected></option>
+                    @foreach (var action in Enum.GetValues<HTTPAction>())
+                    { 
+                        <option value="@action">@action</option>  
+                    }
+                </select>
+            </div>
+            <div class="pe-2 flex-fill">
+                <input type="text" class="form-control"  placeholder="Enter URL" @bind="@request.Url" />
+            </div>
+            <div>
+                <button id="getButton" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row mt-3">
+            <div class="@bodyClasses px-3 pt-2 rounded-top clickable" @onclick="BodyClick">
+                Body
+            </div>
+            <div class="@resultsClasses px-3 pt-2 rounded-top clickable" @onclick="ResultsClick">
+                Results
+            </div>
+
+        </div>
+        <div class="border border-primary-subtle p-3">
+            @if(bodySelected)
+            {
+                <textarea @bind="@request.Content" 
+                class="form-control border border-0 min-vh-50"
+                /> 
+            }
+            else
+            {
+                <div class="min-vh-50">
+
+                    @if(resultsText!= String.Empty)
+                    {
+                        <div class="align-right">
+                            <button class=@copyButtonStyle type="button" @onclick="CopyToClipboard"></button>
+                        </div>
+                    }
+                    <pre class="results-display min-vh-50 @resultsTextStyle">
+                        @resultsText
+                    </pre>
+                </div>
+
+            }
+
+        </div>
+    </EditForm>
+</div> 
+<div class="fixed-bottom pt-1 pb-1 px-4 bg-white border-top border-dark">
+    @systemStatus
+</div>
+
+@code{
+
+    private const string STATUS_READY = "Ready";
+    private const string STATUS_LOADING = "Calling API...";
+    private const string STATUS__INVALID_URL = "Invalid URL!";
+    private const string STATUS_ERROR = "An error occurred";
+    private const string STATUS_INVALID_VERB = "Invalid Http Verb Selection!";
+
+    private readonly IAPIAccess api = new APIAccess();
+
+    private APICallCache cache = new APICallCache("api_cache.json");
+
+    private IAPIModel request = new DisplayApiModel();
+
+    private string copyButtonStyle = "btn-copy btn-copy:hover";
+
+    private string resultsTextStyle = "text-success";
+    private string resultsBorderStyle = "border-success";
+
+
+    private bool bodySelected = true;
+
+    private string resultsText = "";
+
+    private string bodyClasses = "text-bg-primary";
+    private string resultsClasses = "border border-primary";
+
+
+    private string systemStatus = STATUS_READY; 
+
+    private async Task HandleValidSubmit() 
+    {
+
+        resultsText = String.Empty;
+
+
+        //validate URL
+        if (request.Url is null || ValidationHelper.IsValidUrl(request.Url) == false)
+        {
+            await setMessage(STATUS__INVALID_URL, null, 0);
+            // MessageBox.Show("Please enter a valid URL");
+            return;
+        }
+
+        try
+        {
+
+            HTTPAction action = request.Method ;
+
+            await setMessage(STATUS_LOADING, null, 20);
+            string body = action != HTTPAction.GET ? request.Content : String.Empty;
+
+            var response = await api.CallAPI(request.Url, action, body, true);
+            if (response.Item1 == true)
+            {
+
+                resultsText = response.Item2;
+
+                APIModel model = new APIModel(request.Url, action, body);
+                cache.AddAPI(model);
+
+                resultsBorderStyle = "border-success";
+                resultsTextStyle = "text-success";
+
+
+                // resultsBox.ForeColor = Color.DarkGreen;
+                // resultsTab.BackColor = Color.DarkGreen;
+
+            }
+            else
+            {
+                resultsBorderStyle = "border-error";
+                resultsTextStyle = "text-error";
+
+                // resultsBox.ForeColor = Color.DarkRed;
+                // resultsTab.BackColor = Color.DarkRed;
+                await setMessage(STATUS_ERROR, response.Item2, 1000);
+
+            }
+
+            resultsText = response.Item2;
+            ResultsClick();
+
+            await setMessage(STATUS_READY, response.Item2, 0);
+        }
+        catch (Exception ex)
+        {
+            await setMessage(STATUS_ERROR);
+            resultsText = "Error: " + ex.Message;
+        }
+    }
+
+    private async Task setMessage(string message, string? response = null, int delay = 500)
+    {
+
+
+        systemStatus = message;
+        StateHasChanged();
+
+        await Task.Delay(delay);
+
+    }
+
+
+    private void OnSelectionChanged(ChangeEventArgs e)
+    {
+        if (e == null || e.Value == null || e.Value.ToString() == null)
+        {
+            return;
+        }
+
+        HTTPAction act = (HTTPAction)Enum.Parse(typeof(HTTPAction), e.Value.ToString()!);
+
+        request = cache.GetAPI(act);
+
+
+    }
+
+    private void BodyClick()
+    {
+        bodySelected = true;
+        bodyClasses = "text-bg-primary";
+        resultsClasses = "border border-primary";
+    }
+
+    private void ResultsClick()
+    {
+        bodySelected = false;
+        bodyClasses = "border border-primary";
+        resultsClasses = "text-bg-primary";
+    }
+
+    //create a method to handle copying text to the clipboard
+    private async Task CopyToClipboard()
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", resultsText);
+        //show toast
+        copyButtonStyle = "btn-copy-tick";
+        StateHasChanged();
+        await setMessage("Copied to clipboard", null, 1000);
+        copyButtonStyle = "btn-copy hover";
+        await setMessage("Ready", null, 0);
+        StateHasChanged();
+
+    }
+
+
+}

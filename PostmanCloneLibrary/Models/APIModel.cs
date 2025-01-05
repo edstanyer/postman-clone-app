@@ -3,13 +3,14 @@
 namespace PostmanCloneLibrary.Models;
 
 [Serializable]
-public class APIModel
+public class APIModel : IAPIModel
 {
     [JsonPropertyName("url")]
-    public string Url { get; set; }
+    public string? Url { get; set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public HTTPAction Method {
+    public HTTPAction Method
+    {
         get;
         set;
     }
@@ -22,5 +23,12 @@ public class APIModel
         Url = url;
         Method = method;
         Content = content;
+    }
+
+    public APIModel()
+    {
+        Url = String.Empty;
+        Content = String.Empty;
+        Method = HTTPAction.GET;
     }
 }

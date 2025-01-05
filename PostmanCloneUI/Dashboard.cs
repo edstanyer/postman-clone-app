@@ -137,7 +137,7 @@ namespace PostmanCloneUI
             {
 
                 //get the existing API model from the cache
-                APIModel? model = null;
+                IAPIModel? model = null;
                 switch (s)
                 {
                     case "GET":
