@@ -12,38 +12,33 @@ a, .btn-link {
 
 
 .btn-copy {
-    color: #fff;
+    border-style: none;
     background-color: lightgray;
-    border: none;
-    background-image: url('../icons/pat-copy.png');
-    background-repeat: no-repeat;
-    background-position: center ;
-    padding-right: 2rem;
-    width: 32px;
-    height: 32px;
-    border-radius: 5px;
-    
-    
-}
-
- .btn-copy-tick {
-    color: #fff;
-    border: none;
-    background-color: transparent;
-    background-image: url('../icons/pat-tick.png');
     background-repeat: no-repeat;
     background-position: center;
     padding-right: 2rem;
-    width: 32px;
-    height: 32px;
-
-/*    border-radius: 10px;*/
+    width: 48px;
+    height: 48px;
+    border-radius: 5px;
+    background-image: url('../icons/pat-copy.png');
     
+}
+
+.btn-copy-tick {
+    border-style: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-right: 2rem;
+    width: 48px;
+    height: 48px;
+    background-image: url('../icons/pat-tick.png');
+    border-radius: 10px;
 }
 
 .btn-copy:hover {  
    background-color: #d3d3e9; /* Slightly darker than lightgray */
-   border-color: black;  
+
 }
 
 
