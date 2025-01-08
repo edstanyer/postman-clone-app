@@ -5,6 +5,8 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
 * C#
 * .NET 8
 * WinForms
+* WPF
+* Blazor Web Assembly
 * Http CLient
 
 ## Using the App
@@ -17,14 +19,19 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
 5. Incorrect or malformed requests, should give detailed responses, allowing for analysis and problem solving.
 ![Postman clone app bad request](images/screen3.png "Un-Successful Request")
 
-##Version History
+## Version History
 1. v0.1.0:
    * Initial deployment of MVP
 2. v1.0.0
    * Adds POST, PUT, PATCH, DELETE
    * Various UI improvements
    * 'desktops' settings, remembering last URL & body / content from last call or each method
-
+3. v1.0.1
+  *  Adds WPF deployment
+4. v1.0.2 
+  * Adds Blazor WASM
+  * Deployment as Azure Static Web App
+    
 ## Upcoming Changes:
 * Adding POST, PUT, PATCH and DELETE
 * Adding API Headers
