@@ -27,10 +27,10 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
    * Various UI improvements
    * 'desktops' settings, remembering last URL & body / content from last call or each method
 3. v1.0.1
-  *  Adds WPF deployment
+    * Adds WPF deployment
 4. v1.0.2 
-  * Adds Blazor WASM
-  * Deployment as Azure Static Web App
+    * Adds WPF deployment
+    * Deployment as Azure Static Web App
     
 ## Upcoming Changes:
 * Adding POST, PUT, PATCH and DELETE
